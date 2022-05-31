@@ -18,23 +18,19 @@ import org.w3c.dom.Text;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
     /**
      * Attributes
      */
-    private ShoppingList shopping;
-    private Storage storing;
-    private EditText shoppingTf;
-    private ImageButton shoppingBtnAdd;
-    private ImageButton shoppingBtnDelete;
-    private ImageButton shoppingBtnStore;
+    private static ArrayList<String> products;
     private static ListView listView;
+    private static Adapter adapter;
+    private ImageButton addBtn;
+    private ImageButton delBtn;
     private TextView tv;
-    private static ArrayList<String> list;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,26 +42,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         /**
-         * Erzeugen der benoetigten Elemente
+         * Erzeugen und Zwischenlagern der benoetigten Elemente
          */
-        //shopping = new ShoppingList();
-        //storing = new Storage();
+        products = new ArrayList<String>();
+        listView = (ListView) findViewById(R.id.lv);
+        adapter = new Adapter(this, products);
+        addBtn = (ImageButton) findViewById(R.id.addBtn);
+        tv = (TextView) findViewById(R.id.tv);
 
         /**
-         * Zwischenlagerung der Elemente in Variablen, um ueber Variablennamen
-         * auf die grafischen Elemente zugreifen zu könnne.
+         * Adapter für ListViews setzen
          */
-
-
-
-
-        /**
-         * ListView mit Adapter verbinden
-         */
-
-
-
-
+        listView.setAdapter(adapter);
 
         /**
          * Aktionen, die durch Druecken der Buttons ausgeloest werden
@@ -74,18 +62,21 @@ public class MainActivity extends AppCompatActivity {
          * Add-Button bewirkt Aufruf der Methode zum Hinzufuegen
          * der Eingabe im Eingabefeld zur ShoppingList
          */
-        /*
-        shoppingBtnAdd.setOnClickListener(new View.OnClickListener() {
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                String product = shoppingTf.getText().toString();
-                shopping.addProduct(product, shopping, storing);
-                //ArrayAdapter aktualisieren
-                shoppingAdapter.notifyDataSetChanged();
-                //Leere die Eingabe im Eingabefeld
-                shoppingTf.setText("");
+            public void onClick(View v) {
+                String product = tv.getText().toString();
+                if(Pattern.matches("s*", product)) {
+                    //ignoriere leere Eingaben
+                } else {
+                    products.add(product);
+                    Collections.reverse(products);
+                    adapter.notifyDataSetChanged();
+                    tv.setText("");
+                }
             }
-        });*/
+        });
+
 
         /**
          * Aktionen der Buttons in ListView
@@ -95,17 +86,7 @@ public class MainActivity extends AppCompatActivity {
          * Delete-Button ShoppingList on Action bewirkt Aufruf der Methode zum Loeschen
          * des ausgewaehlten Produkts von der ShoppingList
          */
-        /*
-        shoppinglist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //make Toast
-                Toast.makeText(getApplicationContext(), "Removed", Toast.LENGTH_SHORT).show();
-                //remove product - pass index of item that is going to be removed
 
-            }
-        });
-        */
 
         /**
          * OnListItemClick
@@ -138,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static ArrayList<String> getList() {
-        return list;
+        return products;
     }
 
     public static ListView getListView() {

@@ -28,7 +28,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/tfShopping"
+                android:id="@+id/tv"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -37,7 +37,7 @@
                 android:inputType="textPersonName" />
 
             <ImageButton
-                android:id="@+id/addBtnShopping"
+                android:id="@+id/addBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
