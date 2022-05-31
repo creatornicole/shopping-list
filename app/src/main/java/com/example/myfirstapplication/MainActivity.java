@@ -30,9 +30,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton shoppingBtnAdd;
     private ImageButton shoppingBtnDelete;
     private ImageButton shoppingBtnStore;
-    private ListView shoppinglist;
+    private static ListView listView;
     private TextView tv;
-    private ArrayAdapter<String> shoppingAdapter;
+    private static ArrayList<String> list;
+
 
 
     @Override
@@ -47,30 +48,24 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Erzeugen der benoetigten Elemente
          */
-        shopping = new ShoppingList();
-        storing = new Storage();
+        //shopping = new ShoppingList();
+        //storing = new Storage();
 
         /**
          * Zwischenlagerung der Elemente in Variablen, um ueber Variablennamen
          * auf die grafischen Elemente zugreifen zu könnne.
          */
-        //Elemente der Shoppinglist
-        shoppingTf = (EditText) findViewById(R.id.tfShopping);
-        shoppingBtnAdd = (ImageButton) findViewById(R.id.addBtnShopping);
-        shoppingBtnDelete = (ImageButton) findViewById(R.id.deleteBtnShopping);
-        shoppingBtnStore = (ImageButton) findViewById(R.id.storeBtnShopping);
-        shoppinglist = (ListView) findViewById(R.id.shoppinglist);
-        tv = (TextView) findViewById(R.id.textView);
+
+
 
 
         /**
-         * ListView's initialisieren
+         * ListView mit Adapter verbinden
          */
-        //Array Adapter will handle the data of the ListView
-        shoppingAdapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.textView, shopping.getProducts());
-        //set Adapter to Shoppinglist
-        shoppinglist.setAdapter(shoppingAdapter);
-        //create list by supplying those view objects to the ListView
+
+
+
+
 
         /**
          * Aktionen, die durch Druecken der Buttons ausgeloest werden
@@ -79,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
          * Add-Button bewirkt Aufruf der Methode zum Hinzufuegen
          * der Eingabe im Eingabefeld zur ShoppingList
          */
+        /*
         shoppingBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 //Leere die Eingabe im Eingabefeld
                 shoppingTf.setText("");
             }
-        });
+        });*/
 
         /**
          * Aktionen der Buttons in ListView
@@ -99,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
          * Delete-Button ShoppingList on Action bewirkt Aufruf der Methode zum Loeschen
          * des ausgewaehlten Produkts von der ShoppingList
          */
+        /*
         shoppinglist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -108,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        */
+
+        /**
+         * OnListItemClick
+         */
 
 
 
@@ -135,13 +137,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ArrayList<String> productsList = shopping.getProducts();
-        String[] products = productsList.toArray(new String[productsList.size()]);
-        Toast.makeText(MainActivity.this, products[position], Toast.LENGTH_SHORT).show();
+    public static ArrayList<String> getList() {
+        return list;
     }
 
-
+    public static ListView getListView() {
+        return listView;
+    }
 
 
 
