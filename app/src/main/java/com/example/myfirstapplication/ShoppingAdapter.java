@@ -12,16 +12,19 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.myfirstapplication.MainActivity;
+import com.example.myfirstapplication.R;
+
 import java.util.ArrayList;
 
 /**
- * Adapter fuer ListView-Elementen
+ * Adapter fuer ListView-Elementen der Shopping-Liste
  *
  * @author Nicole Gottschall
- * @since 2022-05-31
+ * @since 2022-06-01
  */
 
-public class Adapter extends ArrayAdapter<String> {
+public class ShoppingAdapter extends ArrayAdapter<String> {
 
     private Context mContext;
     private ArrayList<String> stringList;
@@ -32,7 +35,7 @@ public class Adapter extends ArrayAdapter<String> {
      * @param context
      * @param list
      */
-    public Adapter(@NonNull Context context, @LayoutRes ArrayList<String> list) {
+    public ShoppingAdapter(@NonNull Context context, @LayoutRes ArrayList<String> list) {
         super(context, 0 , list);
         mContext = context;
         stringList = list;
@@ -79,3 +82,4 @@ public class Adapter extends ArrayAdapter<String> {
         return listItem;
     }
 }
+

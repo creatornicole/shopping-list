@@ -12,16 +12,13 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.myfirstapplication.MainActivity;
+import com.example.myfirstapplication.R;
+import com.example.myfirstapplication.StorageActivity;
+
 import java.util.ArrayList;
 
-/**
- * Adapter fuer ListView-Elementen
- *
- * @author Nicole Gottschall
- * @since 2022-05-31
- */
-
-public class Adapter extends ArrayAdapter<String> {
+public class StorageAdapter extends ArrayAdapter<String> {
 
     private Context mContext;
     private ArrayList<String> stringList;
@@ -32,7 +29,7 @@ public class Adapter extends ArrayAdapter<String> {
      * @param context
      * @param list
      */
-    public Adapter(@NonNull Context context, @LayoutRes ArrayList<String> list) {
+    public StorageAdapter(@NonNull Context context, @LayoutRes ArrayList<String> list) {
         super(context, 0 , list);
         mContext = context;
         stringList = list;
@@ -60,7 +57,7 @@ public class Adapter extends ArrayAdapter<String> {
         //get clicked Item
         String current = stringList.get(position);
         //get Element from ArrayList
-        ArrayList<String> list = MainActivity.getList();
+        ArrayList<String> list = StorageActivity.getList();
         //show clicked Item in ListView
         text.setText(list.get(position));
 
@@ -79,3 +76,4 @@ public class Adapter extends ArrayAdapter<String> {
         return listItem;
     }
 }
+

@@ -4,32 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity {
+public class StorageActivity extends AppCompatActivity {
 
     /**
      * Attributes
      */
-    private static ArrayList<String> products;
+    private static ArrayList<String> storage;
     private static ListView listView;
-    private static ShoppingAdapter adapter;
+    private static StorageAdapter adapter;
     private ImageButton addBtn;
     private ImageButton delBtn;
     private Button switchBtn;
@@ -42,17 +34,17 @@ public class MainActivity extends AppCompatActivity {
          * Erstellen der grafischen Oberflaeche
          */
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_storage);
 
         /**
          * Erzeugen und Zwischenlagern der benoetigten Elemente
          */
-        products = new ArrayList<String>();
-        listView = (ListView) findViewById(R.id.lv);
-        adapter = new ShoppingAdapter(this, products);
-        addBtn = (ImageButton) findViewById(R.id.addBtn);
-        switchBtn = (Button) findViewById(R.id.switchBtn);
-        tv = (TextView) findViewById(R.id.tv);
+        storage = new ArrayList<String>();
+        listView = (ListView) findViewById(R.id.lvStorage);
+        adapter = new StorageAdapter(this, storage);
+        addBtn = (ImageButton) findViewById(R.id.addBtnStorage);
+        switchBtn = (Button) findViewById(R.id.switchBtnStorage);
+        tv = (TextView) findViewById(R.id.tvStorage);
 
         /**
          * Adapter für ListViews setzen
@@ -68,11 +60,10 @@ public class MainActivity extends AppCompatActivity {
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, StorageActivity.class);
+                Intent i = new Intent(StorageActivity.this, MainActivity.class);
                 startActivity(i);
             }
         });
-
         /**
          * Add-Button bewirkt Aufruf der Methode zum Hinzufuegen
          * der Eingabe im Eingabefeld zur ShoppingList
@@ -84,58 +75,20 @@ public class MainActivity extends AppCompatActivity {
                 if(Pattern.matches("s*", product)) {
                     //ignoriere leere Eingaben
                 } else {
-                    products.add(product);
-                    Collections.reverse(products);
+                    storage.add(product);
+                    Collections.reverse(storage);
                     adapter.notifyDataSetChanged();
                     tv.setText("");
                 }
             }
         });
-
-
-        /**
-         * Aktionen der Buttons in ListView
-         */
-
-        /**
-         * Delete-Button ShoppingList on Action bewirkt Aufruf der Methode zum Loeschen
-         * des ausgewaehlten Produkts von der ShoppingList
-         */
-
-
-        /**
-         * Store-Button ShoppingList on Action bewirkt Verschieben des ausgewaehlten Produkts
-         * auf die Storage-Liste
-         */
-
-
-        /**
-         * Add-Button Storage on Action bewirkt Aufruf der Methode zum Hinzufuegen
-         * der Eingabe im Eingabefeld zur Storage-Liste
-         */
-        /**
-         * Delete-Button Storage on Action bewirkt Aufruf der Methode zum Loeschen
-         * des ausgewaehlten Produkts von der Storage-Liste
-         */
-        /**
-         * Buy-Button Storage on Action bewirkt Verschieben des ausgewaehlten Produkts
-         * auf die ShoppingList
-         */
-
-
-
-
     }
 
     public static ArrayList<String> getList() {
-        return products;
+        return storage;
     }
 
     public static ListView getListView() {
         return listView;
     }
-
-
-
-
 }
