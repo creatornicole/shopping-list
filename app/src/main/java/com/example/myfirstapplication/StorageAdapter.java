@@ -69,7 +69,7 @@ public class StorageAdapter extends ArrayAdapter<String> {
                 int index = list.indexOf(current);
                 list.remove(index);
                 //update ListView
-                MainActivity.getListView().invalidateViews();
+                StorageActivity.getListView().invalidateViews();
             }
 
         });

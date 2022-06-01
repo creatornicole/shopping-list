@@ -40,11 +40,11 @@ public class StorageActivity extends AppCompatActivity {
          * Erzeugen und Zwischenlagern der benoetigten Elemente
          */
         storage = new ArrayList<String>();
-        listView = (ListView) findViewById(R.id.lvStorage);
+        listView = (ListView) findViewById(R.id.lv);
         adapter = new StorageAdapter(this, storage);
-        addBtn = (ImageButton) findViewById(R.id.addBtnStorage);
-        switchBtn = (Button) findViewById(R.id.switchBtnStorage);
-        tv = (TextView) findViewById(R.id.tvStorage);
+        addBtn = (ImageButton) findViewById(R.id.addBtn);
+        switchBtn = (Button) findViewById(R.id.switchBtn);
+        tv = (TextView) findViewById(R.id.tv);
 
         /**
          * Adapter für ListViews setzen

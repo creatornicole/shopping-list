@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * @since 2022-05-31
  */
 
-public class Adapter extends ArrayAdapter<String> {
+public abstract class Adapter extends ArrayAdapter<String> {
 
     private Context mContext;
     private ArrayList<String> stringList;
@@ -60,7 +60,7 @@ public class Adapter extends ArrayAdapter<String> {
         //get clicked Item
         String current = stringList.get(position);
         //get Element from ArrayList
-        ArrayList<String> list = MainActivity.getList();
+        ArrayList<String> list = getStringList();
         //show clicked Item in ListView
         text.setText(list.get(position));
 
@@ -78,4 +78,6 @@ public class Adapter extends ArrayAdapter<String> {
         });
         return listItem;
     }
+
+    public abstract ArrayList<String> getStringList();
 }

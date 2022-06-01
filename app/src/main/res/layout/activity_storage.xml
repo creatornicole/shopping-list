@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/switchBtnStorage"
+            android:id="@+id/switchBtn"
             android:text="Shopping"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -32,7 +32,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/tvStorage"
+                android:id="@+id/tv"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -41,7 +41,7 @@
                 android:inputType="textPersonName" />
 
             <ImageButton
-                android:id="@+id/addBtnStorage"
+                android:id="@+id/addBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -50,7 +50,7 @@
         </LinearLayout>
 
         <ListView
-            android:id="@+id/lvStorage"
+            android:id="@+id/lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true">
