@@ -24,10 +24,7 @@ import java.util.ArrayList;
  * @since 2022-06-01
  */
 
-public class ShoppingAdapter extends ArrayAdapter<String> {
-
-    private Context mContext;
-    private ArrayList<String> stringList;
+public class ShoppingAdapter extends Adapter {
 
     /**
      * Konstruktor des Adapters
@@ -35,10 +32,8 @@ public class ShoppingAdapter extends ArrayAdapter<String> {
      * @param context
      * @param list
      */
-    public ShoppingAdapter(@NonNull Context context, @LayoutRes ArrayList<String> list) {
-        super(context, 0 , list);
-        mContext = context;
-        stringList = list;
+    public ShoppingAdapter(@NonNull Context context, ArrayList<String> list) {
+        super(context, list);
     }
 
     /**
@@ -52,6 +47,9 @@ public class ShoppingAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        Context mContext = getmContext();
+        ArrayList<String> stringList = getStringList();
+
         View listItem = convertView;
         if(listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
@@ -71,9 +69,7 @@ public class ShoppingAdapter extends ArrayAdapter<String> {
         delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //remove element
-                int index = list.indexOf(current);
-                list.remove(index);
+                delete(list, current);
                 //update ListView
                 MainActivity.getListView().invalidateViews();
             }

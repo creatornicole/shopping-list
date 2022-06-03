@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -18,10 +19,7 @@ import com.example.myfirstapplication.StorageActivity;
 
 import java.util.ArrayList;
 
-public class StorageAdapter extends ArrayAdapter<String> {
-
-    private Context mContext;
-    private ArrayList<String> stringList;
+public class StorageAdapter extends Adapter {
 
     /**
      * Konstruktor des Adapters
@@ -30,9 +28,7 @@ public class StorageAdapter extends ArrayAdapter<String> {
      * @param list
      */
     public StorageAdapter(@NonNull Context context, @LayoutRes ArrayList<String> list) {
-        super(context, 0 , list);
-        mContext = context;
-        stringList = list;
+        super(context, list);
     }
 
     /**
@@ -46,6 +42,9 @@ public class StorageAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        Context mContext = getmContext();
+        ArrayList<String> stringList = getStringList();
+
         View listItem = convertView;
         if(listItem == null)
             listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
@@ -65,9 +64,7 @@ public class StorageAdapter extends ArrayAdapter<String> {
         delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //remove element
-                int index = list.indexOf(current);
-                list.remove(index);
+                delete(list, current);
                 //update ListView
                 StorageActivity.getListView().invalidateViews();
             }

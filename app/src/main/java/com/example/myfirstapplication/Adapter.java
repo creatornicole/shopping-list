@@ -23,8 +23,8 @@ import java.util.ArrayList;
 
 public abstract class Adapter extends ArrayAdapter<String> {
 
-    private Context mContext;
-    private ArrayList<String> stringList;
+    private static Context mContext;
+    private static ArrayList<String> stringList;
 
     /**
      * Konstruktor des Adapters
@@ -48,36 +48,20 @@ public abstract class Adapter extends ArrayAdapter<String> {
      */
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listItem = convertView;
-        if(listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
+    public abstract View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent);
 
-        //get Elements of ListItem
-        TextView text = (TextView) listItem.findViewById(R.id.text);
-        ImageButton delBtn = (ImageButton) listItem.findViewById(R.id.delBtn);
-
-        //get clicked Item
-        String current = stringList.get(position);
-        //get Element from ArrayList
-        ArrayList<String> list = getStringList();
-        //show clicked Item in ListView
-        text.setText(list.get(position));
-
-        //OnButtonClickEvent to delete
-        delBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //remove element
-                int index = list.indexOf(current);
-                list.remove(index);
-                //update ListView
-                MainActivity.getListView().invalidateViews();
-            }
-
-        });
-        return listItem;
+    public void delete(ArrayList<String> list, String current) {
+        //remove element
+        int index = list.indexOf(current);
+        list.remove(index);
     }
 
-    public abstract ArrayList<String> getStringList();
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public ArrayList<String> getStringList() {
+        return stringList;
+    }
+
 }

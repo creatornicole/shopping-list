@@ -19,13 +19,12 @@ public class StorageActivity extends AppCompatActivity {
     /**
      * Attributes
      */
-    private static ArrayList<String> storage;
     private static ListView listView;
-    private static StorageAdapter adapter;
     private ImageButton addBtn;
-    private ImageButton delBtn;
     private Button switchBtn;
     private TextView tv;
+    private static List storageList;
+    private static Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +36,22 @@ public class StorageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_storage);
 
         /**
-         * Erzeugen und Zwischenlagern der benoetigten Elemente
+         * Zuweisung der benoetigten grafischen Elemente zu Variablen
          */
-        storage = new ArrayList<String>();
         listView = (ListView) findViewById(R.id.lv);
-        adapter = new StorageAdapter(this, storage);
         addBtn = (ImageButton) findViewById(R.id.addBtn);
         switchBtn = (Button) findViewById(R.id.switchBtn);
         tv = (TextView) findViewById(R.id.tv);
 
         /**
-         * Adapter für ListViews setzen
+         * Erzeugen der Liste
          */
+        storageList = new List(this);
+
+        /**
+         * Einrichten des Adapters
+         */
+        adapter = new StorageAdapter(this, getList());
         listView.setAdapter(adapter);
 
         /**
@@ -71,24 +74,17 @@ public class StorageActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String product = tv.getText().toString();
-                if(Pattern.matches("s*", product)) {
-                    //ignoriere leere Eingaben
-                } else {
-                    storage.add(product);
-                    Collections.reverse(storage);
-                    adapter.notifyDataSetChanged();
-                    tv.setText("");
-                }
+                storageList.addProduct(tv.getText().toString(), adapter);
+                tv.setText("");
             }
         });
     }
 
-    public static ArrayList<String> getList() {
-        return storage;
-    }
-
     public static ListView getListView() {
         return listView;
+    }
+
+    public static ArrayList<String> getList() {
+        return storageList.getProducts();
     }
 }

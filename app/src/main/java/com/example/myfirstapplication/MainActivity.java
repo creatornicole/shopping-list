@@ -27,13 +27,12 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Attributes
      */
-    private static ArrayList<String> products;
     private static ListView listView;
-    private static ShoppingAdapter adapter;
     private ImageButton addBtn;
-    private ImageButton delBtn;
     private Button switchBtn;
     private TextView tv;
+    private static List shoppingList;
+    private static Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +44,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         /**
-         * Erzeugen und Zwischenlagern der benoetigten Elemente
+         * Zuweisung der benoetigten grafischen Elemente zu Variablen
          */
-        products = new ArrayList<String>();
         listView = (ListView) findViewById(R.id.lv);
-        adapter = new ShoppingAdapter(this, products);
         addBtn = (ImageButton) findViewById(R.id.addBtn);
         switchBtn = (Button) findViewById(R.id.switchBtn);
         tv = (TextView) findViewById(R.id.tv);
 
         /**
-         * Adapter für ListViews setzen
+         * Erzeugen der Liste
          */
+        shoppingList = new List(this);
+
+        /**
+         * Einrichten des Adapters
+         */
+        adapter = new ShoppingAdapter(this, getList());
         listView.setAdapter(adapter);
 
         /**
@@ -80,62 +83,22 @@ public class MainActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String product = tv.getText().toString();
-                if(Pattern.matches("s*", product)) {
-                    //ignoriere leere Eingaben
-                } else {
-                    products.add(product);
-                    Collections.reverse(products);
-                    adapter.notifyDataSetChanged();
-                    tv.setText("");
-                }
+                shoppingList.addProduct(tv.getText().toString(), adapter);
+                tv.setText("");
             }
         });
-
-
-        /**
-         * Aktionen der Buttons in ListView
-         */
-
-        /**
-         * Delete-Button ShoppingList on Action bewirkt Aufruf der Methode zum Loeschen
-         * des ausgewaehlten Produkts von der ShoppingList
-         */
-
-
         /**
          * Store-Button ShoppingList on Action bewirkt Verschieben des ausgewaehlten Produkts
          * auf die Storage-Liste
          */
-
-
-        /**
-         * Add-Button Storage on Action bewirkt Aufruf der Methode zum Hinzufuegen
-         * der Eingabe im Eingabefeld zur Storage-Liste
-         */
-        /**
-         * Delete-Button Storage on Action bewirkt Aufruf der Methode zum Loeschen
-         * des ausgewaehlten Produkts von der Storage-Liste
-         */
-        /**
-         * Buy-Button Storage on Action bewirkt Verschieben des ausgewaehlten Produkts
-         * auf die ShoppingList
-         */
-
-
-
-
-    }
-
-    public static ArrayList<String> getList() {
-        return products;
     }
 
     public static ListView getListView() {
         return listView;
     }
 
-
-
+    public static ArrayList<String> getList() {
+        return shoppingList.getProducts();
+    }
 
 }
