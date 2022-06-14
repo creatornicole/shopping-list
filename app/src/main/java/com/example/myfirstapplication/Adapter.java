@@ -25,8 +25,16 @@ import java.util.ArrayList;
 public abstract class Adapter extends ArrayAdapter<String> {
 
     private static Context mContext;
+<<<<<<< HEAD
     private int mRessource;
     private DataBaseHelper mDbHelper;
+=======
+<<<<<<< HEAD
+    private int mRessource;
+    private DataBaseHelper mDbHelper;
+=======
+>>>>>>> 7cf137685bafd7eb5462c1e78289ac404e7d08eb
+>>>>>>> 6b35162136b68a81f4155506e44d7e2bdbd98695
     private static ArrayList<String> stringList;
 
     /**
@@ -53,6 +61,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
      */
     @NonNull
     @Override
+<<<<<<< HEAD
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //geklicktes Element der ListView erhalten
         String product = getItem(position);
@@ -89,6 +98,16 @@ public abstract class Adapter extends ArrayAdapter<String> {
         });
         return convertView;
     }
+=======
+    public abstract View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent);
+
+    public void delete(ArrayList<String> list, String current) {
+        //remove element
+        int index = list.indexOf(current);
+        list.remove(index);
+    }
+<<<<<<< HEAD
+>>>>>>> 6b35162136b68a81f4155506e44d7e2bdbd98695
 
     public Context getmContext() {
         return mContext;
@@ -104,6 +123,18 @@ public abstract class Adapter extends ArrayAdapter<String> {
 
     public DataBaseHelper getmDbHelper() {
         return mDbHelper;
+<<<<<<< HEAD
+=======
+=======
+
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public ArrayList<String> getStringList() {
+        return stringList;
+>>>>>>> 7cf137685bafd7eb5462c1e78289ac404e7d08eb
+>>>>>>> 6b35162136b68a81f4155506e44d7e2bdbd98695
     }
 
 }
