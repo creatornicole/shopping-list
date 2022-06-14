@@ -1,11 +1,14 @@
 package com.example.myfirstapplication;
 
 import android.content.Context;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
@@ -24,10 +27,9 @@ import java.util.ArrayList;
  * @since 2022-06-01
  */
 
-public class ShoppingAdapter extends ArrayAdapter<String> {
+public class ShoppingAdapter extends Adapter {
 
-    private Context mContext;
-    private ArrayList<String> stringList;
+
 
     /**
      * Konstruktor des Adapters
@@ -35,10 +37,8 @@ public class ShoppingAdapter extends ArrayAdapter<String> {
      * @param context
      * @param list
      */
-    public ShoppingAdapter(@NonNull Context context, @LayoutRes ArrayList<String> list) {
-        super(context, 0 , list);
-        mContext = context;
-        stringList = list;
+    public ShoppingAdapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper) {
+        super(context, list, dbHelper);
     }
 
     /**
@@ -52,34 +52,40 @@ public class ShoppingAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View listItem = convertView;
-        if(listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
+        //geklicktes Element der ListView erhalten
+        String product = getItem(position);
 
-        //get Elements of ListItem
-        TextView text = (TextView) listItem.findViewById(R.id.text);
-        ImageButton delBtn = (ImageButton) listItem.findViewById(R.id.delBtn);
+        LayoutInflater inflater = LayoutInflater.from(getmContext());
+        convertView = inflater.inflate(getmRessource(), parent, false);
 
-        //get clicked Item
-        String current = stringList.get(position);
-        //get Element from ArrayList
-        ArrayList<String> list = MainActivity.getList();
-        //show clicked Item in ListView
-        text.setText(list.get(position));
+        //erhalte Textfeld
+        TextView tv = (TextView) convertView.findViewById(R.id.product);
 
-        //OnButtonClickEvent to delete
-        delBtn.setOnClickListener(new View.OnClickListener() {
+        //Info zu Textfeld hinzufuegen
+        tv.setText(product);
+
+        //Loesch-Funktion
+        ImageView delView = (ImageView) convertView.findViewById(R.id.delView);
+        delView.setTag(position); //setzt Position in Liste als Tag
+        delView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //remove element
-                int index = list.indexOf(current);
-                list.remove(index);
-                //update ListView
-                MainActivity.getListView().invalidateViews();
-            }
+                ArrayList<String> list = getStringList();
+                DataBaseHelper dbHelper = getmDbHelper();
 
+                Integer position = new Integer(v.getTag().toString()); //Position aus Tag erhalten
+                String product = list.get(position); //Produkt aus ArrayList erhalten
+
+                dbHelper.deleteOne(product);
+                ArrayList<String> newList = dbHelper.getAllAsList();
+                list.clear();
+                for(String s: newList) {
+                    list.add(s);
+                    notifyDataSetChanged();
+                }
+            }
         });
-        return listItem;
+        return convertView;
     }
 }
 

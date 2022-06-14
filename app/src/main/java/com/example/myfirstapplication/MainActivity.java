@@ -22,18 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ActivityParent {
 
-    /**
-     * Attributes
-     */
-    private static ArrayList<String> products;
-    private static ListView listView;
-    private static ShoppingAdapter adapter;
-    private ImageButton addBtn;
-    private ImageButton delBtn;
-    private Button switchBtn;
-    private TextView tv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,27 +35,49 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /**
-         * Erzeugen und Zwischenlagern der benoetigten Elemente
-         */
-        products = new ArrayList<String>();
-        listView = (ListView) findViewById(R.id.lv);
-        adapter = new ShoppingAdapter(this, products);
-        addBtn = (ImageButton) findViewById(R.id.addBtn);
-        switchBtn = (Button) findViewById(R.id.switchBtn);
-        tv = (TextView) findViewById(R.id.tv);
+        DataBaseHelper dbHelper = new DataBaseHelper(MainActivity.this, "shopping.db");
+        setDbHelper(dbHelper);
 
-        /**
-         * Adapter für ListViews setzen
-         */
-        listView.setAdapter(adapter);
+        assignVariables();
+        registerClick();
+        showAllProducts(dbHelper);
 
-        /**
-         * Aktionen, die durch Druecken der Buttons ausgeloest werden
-         */
-        /**
-         * Switch-Button zum Wechseln der Liste
-         */
+
+
+
+    }
+
+    public void showAllProducts(DataBaseHelper dbHelper) {
+        Adapter adapter = new ShoppingAdapter(this, dbHelper.getAllAsList(), dbHelper);
+        setAdapter(adapter);
+
+        ListView lv = getListView();
+        lv.setAdapter(adapter);
+    }
+
+    public void registerClick() {
+        ImageButton addBtn = getAddBtn();
+        Button switchBtn = getSwitchBtn();
+        TextView tv = getTv();
+        DataBaseHelper dbHelper = getDbHelper();
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String product = tv.getText().toString();
+                if(Pattern.matches("s*", product)) {
+                    Toast.makeText(MainActivity.this, "Title is missing", Toast.LENGTH_SHORT).show();
+                } else if(dbHelper.existsInDB(product)) {
+                    Toast.makeText(MainActivity.this, "Already added Product to list", Toast.LENGTH_SHORT).show();
+                } else {
+                    dbHelper.addOne(product);
+                    showAllProducts(dbHelper);
+                }
+                //Textfeld wieder leeren
+                tv.setText("");
+            }
+        });
+
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,69 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-        /**
-         * Add-Button bewirkt Aufruf der Methode zum Hinzufuegen
-         * der Eingabe im Eingabefeld zur ShoppingList
-         */
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String product = tv.getText().toString();
-                if(Pattern.matches("s*", product)) {
-                    //ignoriere leere Eingaben
-                } else {
-                    products.add(product);
-                    Collections.reverse(products);
-                    adapter.notifyDataSetChanged();
-                    tv.setText("");
-                }
-            }
-        });
-
-
-        /**
-         * Aktionen der Buttons in ListView
-         */
-
-        /**
-         * Delete-Button ShoppingList on Action bewirkt Aufruf der Methode zum Loeschen
-         * des ausgewaehlten Produkts von der ShoppingList
-         */
-
-
-        /**
-         * Store-Button ShoppingList on Action bewirkt Verschieben des ausgewaehlten Produkts
-         * auf die Storage-Liste
-         */
-
-
-        /**
-         * Add-Button Storage on Action bewirkt Aufruf der Methode zum Hinzufuegen
-         * der Eingabe im Eingabefeld zur Storage-Liste
-         */
-        /**
-         * Delete-Button Storage on Action bewirkt Aufruf der Methode zum Loeschen
-         * des ausgewaehlten Produkts von der Storage-Liste
-         */
-        /**
-         * Buy-Button Storage on Action bewirkt Verschieben des ausgewaehlten Produkts
-         * auf die ShoppingList
-         */
-
-
-
-
     }
-
-    public static ArrayList<String> getList() {
-        return products;
-    }
-
-    public static ListView getListView() {
-        return listView;
-    }
-
 
 
 

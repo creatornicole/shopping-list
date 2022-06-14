@@ -9,23 +9,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Pattern;
 
-public class StorageActivity extends AppCompatActivity {
-
-    /**
-     * Attributes
-     */
-    private static ArrayList<String> storage;
-    private static ListView listView;
-    private static StorageAdapter adapter;
-    private ImageButton addBtn;
-    private ImageButton delBtn;
-    private Button switchBtn;
-    private TextView tv;
+public class StorageActivity extends ActivityParent {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,27 +26,45 @@ public class StorageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage);
 
-        /**
-         * Erzeugen und Zwischenlagern der benoetigten Elemente
-         */
-        storage = new ArrayList<String>();
-        listView = (ListView) findViewById(R.id.lv);
-        adapter = new StorageAdapter(this, storage);
-        addBtn = (ImageButton) findViewById(R.id.addBtn);
-        switchBtn = (Button) findViewById(R.id.switchBtn);
-        tv = (TextView) findViewById(R.id.tv);
+        DataBaseHelper dbHelper = new DataBaseHelper(StorageActivity.this, "storage.db");
+        setDbHelper(dbHelper);
 
-        /**
-         * Adapter für ListViews setzen
-         */
-        listView.setAdapter(adapter);
+        assignVariables();
+        registerClick();
+        showAllProducts(dbHelper);
+    }
 
-        /**
-         * Aktionen, die durch Druecken der Buttons ausgeloest werden
-         */
-        /**
-         * Switch-Button zum Wechseln der Liste
-         */
+    public void showAllProducts(DataBaseHelper dbHelper) {
+        Adapter adapter = new StorageAdapter(this, dbHelper.getAllAsList(), dbHelper);
+        setAdapter(adapter);
+
+        ListView lv = getListView();
+        lv.setAdapter(adapter);
+    }
+
+    public void registerClick() {
+        ImageButton addBtn = getAddBtn();
+        Button switchBtn = getSwitchBtn();
+        TextView tv = getTv();
+        DataBaseHelper dbHelper = getDbHelper();
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String product = tv.getText().toString();
+                if(Pattern.matches("s*", product)) {
+                    Toast.makeText(StorageActivity.this, "Title is missing", Toast.LENGTH_SHORT).show();
+                } else if(dbHelper.existsInDB(product)) {
+                    Toast.makeText(StorageActivity.this, "Already added Product to list", Toast.LENGTH_SHORT).show();
+                } else {
+                    dbHelper.addOne(product);
+                    showAllProducts(dbHelper);
+                }
+                //Textfeld wieder leeren
+                tv.setText("");
+            }
+        });
+
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,31 +72,5 @@ public class StorageActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        /**
-         * Add-Button bewirkt Aufruf der Methode zum Hinzufuegen
-         * der Eingabe im Eingabefeld zur ShoppingList
-         */
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String product = tv.getText().toString();
-                if(Pattern.matches("s*", product)) {
-                    //ignoriere leere Eingaben
-                } else {
-                    storage.add(product);
-                    Collections.reverse(storage);
-                    adapter.notifyDataSetChanged();
-                    tv.setText("");
-                }
-            }
-        });
-    }
-
-    public static ArrayList<String> getList() {
-        return storage;
-    }
-
-    public static ListView getListView() {
-        return listView;
     }
 }
