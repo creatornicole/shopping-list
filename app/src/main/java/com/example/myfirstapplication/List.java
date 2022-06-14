@@ -1,59 +1,37 @@
 package com.example.myfirstapplication;
 
-import android.widget.ArrayAdapter;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.regex.Pattern;
 
-public abstract class List {
+public class List {
 
-    /**
-     * Attribute der Klasse List
-     */
-    ArrayList<String> products = new ArrayList<String>();
+    private static ArrayList<String> products;
 
-    /**
-     * Default-Konstruktor der Klasse List
-     */
-    public List() {
+    public List(Context activity) {
+        products = new ArrayList<String>();
     }
 
-    /**
-     * Abstrakte Methode addProduct() zum Hinzufuegen eines Produkts zu der Liste mit Hintergrundcheck,
-     * ob Produkt bereits auf einer anderen (angegebenen) Liste vorhanden ist.
-     *
-     * @param product - Produkt welches hinzugefuegt werden soll
-     * @param list - Liste, auf die Produkt hinzugefuegt werden soll
-     * @param checkList - Liste, auf der ueberprueft werden soll, ob Produkt bereits vorhanden ist
-     */
-    public abstract void addProduct(String product, List list, List checkList);
-
-    /**
-     * Methode switchList() zum Listenwechsel eines Produkts.
-     *
-     * @param selected - Produkt, welches auf eine andere Liste geschoben werden soll
-     * @param from - Liste, von der Produkt geloescht werden soll
-     * @param to - Liste, auf die Produkt verschoben werden soll
-     */
-    public void switchList(String selected, List from, List to) {
-        //Aktion noch hinzufuegen
+    public void addProduct(String product, Adapter adapter) {
+        if(Pattern.matches("s*", product)) {
+            //ignoriere leere Eingaben
+        } else {
+            products.add(product);
+            Collections.reverse(products);
+            adapter.notifyDataSetChanged();
+        }
     }
 
-    /**
-     * Methode deleteProduct() loescht ein Produkt von einer Liste.
-     *
-     * @param selected - Produkt, welches geloescht werden soll
-     * @param list - Liste, von der Produkt geloescht werden soll
-     */
-    public void deleteProducts(String selected, List list) {
+    //add switchProduct()
 
-
-    }
-
-    /**
-     * Getter
-     */
     public ArrayList<String> getProducts() {
         return products;
     }
+
+
 }
