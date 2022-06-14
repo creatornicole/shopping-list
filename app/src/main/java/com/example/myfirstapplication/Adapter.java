@@ -24,8 +24,11 @@ import java.util.ArrayList;
 public abstract class Adapter extends ArrayAdapter<String> {
 
     private static Context mContext;
+<<<<<<< HEAD
     private int mRessource;
     private DataBaseHelper mDbHelper;
+=======
+>>>>>>> 7cf137685bafd7eb5462c1e78289ac404e7d08eb
     private static ArrayList<String> stringList;
 
     /**
@@ -59,6 +62,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
         int index = list.indexOf(current);
         list.remove(index);
     }
+<<<<<<< HEAD
 
     public Context getmContext() {
         return mContext;
@@ -74,6 +78,15 @@ public abstract class Adapter extends ArrayAdapter<String> {
 
     public DataBaseHelper getmDbHelper() {
         return mDbHelper;
+=======
+
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public ArrayList<String> getStringList() {
+        return stringList;
+>>>>>>> 7cf137685bafd7eb5462c1e78289ac404e7d08eb
     }
 
 }

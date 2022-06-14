@@ -21,11 +21,23 @@ import com.example.myfirstapplication.StorageActivity;
 import java.util.ArrayList;
 
 public class StorageAdapter extends Adapter {
+<<<<<<< HEAD
 
 
 
     public StorageAdapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper) {
         super(context, list, dbHelper);
+=======
+
+    /**
+     * Konstruktor des Adapters
+     *
+     * @param context
+     * @param list
+     */
+    public StorageAdapter(@NonNull Context context, @LayoutRes ArrayList<String> list) {
+        super(context, list);
+>>>>>>> 7cf137685bafd7eb5462c1e78289ac404e7d08eb
     }
 
     /**
@@ -39,6 +51,7 @@ public class StorageAdapter extends Adapter {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+<<<<<<< HEAD
         //geklicktes Element der ListView erhalten
         String product = getItem(position);
 
@@ -59,6 +72,34 @@ public class StorageAdapter extends Adapter {
             public void onClick(View v) {
                 ArrayList<String> list = getStringList();
                 DataBaseHelper dbHelper = getmDbHelper();
+=======
+        Context mContext = getmContext();
+        ArrayList<String> stringList = getStringList();
+
+        View listItem = convertView;
+        if(listItem == null)
+            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
+
+        //get Elements of ListItem
+        TextView text = (TextView) listItem.findViewById(R.id.text);
+        ImageButton delBtn = (ImageButton) listItem.findViewById(R.id.delBtn);
+
+        //get clicked Item
+        String current = stringList.get(position);
+        //get Element from ArrayList
+        ArrayList<String> list = StorageActivity.getList();
+        //show clicked Item in ListView
+        text.setText(list.get(position));
+
+        //OnButtonClickEvent to delete
+        delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete(list, current);
+                //update ListView
+                StorageActivity.getListView().invalidateViews();
+            }
+>>>>>>> 7cf137685bafd7eb5462c1e78289ac404e7d08eb
 
                 Integer position = new Integer(v.getTag().toString()); //Position aus Tag erhalten
                 String product = list.get(position); //Produkt aus ArrayList erhalten
