@@ -28,17 +28,6 @@ import java.util.ArrayList;
  */
 
 public class ShoppingAdapter extends Adapter {
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 7cf137685bafd7eb5462c1e78289ac404e7d08eb
->>>>>>> 6b35162136b68a81f4155506e44d7e2bdbd98695
->>>>>>> 54c418ccf59357d6b9849b18ebd6acdf64fc8f3c
 
     /**
      * Konstruktor des Adapters
@@ -47,99 +36,7 @@ public class ShoppingAdapter extends Adapter {
      * @param list
      * @param dbHelper
      */
-<<<<<<< HEAD
     public ShoppingAdapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper) {
         super(context, list, dbHelper);
-=======
-<<<<<<< HEAD
-    public ShoppingAdapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper) {
-        super(context, list, dbHelper);
-=======
-<<<<<<< HEAD
-    public ShoppingAdapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper) {
-        super(context, list, dbHelper);
-=======
-    public ShoppingAdapter(@NonNull Context context, ArrayList<String> list) {
-        super(context, list);
->>>>>>> 7cf137685bafd7eb5462c1e78289ac404e7d08eb
-    }
-
-    /**
-     * getView() wird aufgerufen, wenn ListView-Element erstellt wird.
-     *
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
-     */
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-<<<<<<< HEAD
-        //geklicktes Element der ListView erhalten
-        String product = getItem(position);
-
-        LayoutInflater inflater = LayoutInflater.from(getmContext());
-        convertView = inflater.inflate(getmRessource(), parent, false);
-
-        //erhalte Textfeld
-        TextView tv = (TextView) convertView.findViewById(R.id.product);
-
-        //Info zu Textfeld hinzufuegen
-        tv.setText(product);
-
-        //Loesch-Funktion
-        ImageView delView = (ImageView) convertView.findViewById(R.id.delView);
-        delView.setTag(position); //setzt Position in Liste als Tag
-        delView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList<String> list = getStringList();
-                DataBaseHelper dbHelper = getmDbHelper();
-=======
-        Context mContext = getmContext();
-        ArrayList<String> stringList = getStringList();
-
-        View listItem = convertView;
-        if(listItem == null)
-            listItem = LayoutInflater.from(mContext).inflate(R.layout.list_item,parent,false);
-
-        //get Elements of ListItem
-        TextView text = (TextView) listItem.findViewById(R.id.text);
-        ImageButton delBtn = (ImageButton) listItem.findViewById(R.id.delBtn);
-
-        //get clicked Item
-        String current = stringList.get(position);
-        //get Element from ArrayList
-        ArrayList<String> list = MainActivity.getList();
-        //show clicked Item in ListView
-        text.setText(list.get(position));
-
-        //OnButtonClickEvent to delete
-        delBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                delete(list, current);
-                //update ListView
-                MainActivity.getListView().invalidateViews();
-            }
->>>>>>> 7cf137685bafd7eb5462c1e78289ac404e7d08eb
-
-                Integer position = new Integer(v.getTag().toString()); //Position aus Tag erhalten
-                String product = list.get(position); //Produkt aus ArrayList erhalten
-
-                dbHelper.deleteOne(product);
-                ArrayList<String> newList = dbHelper.getAllAsList();
-                list.clear();
-                for(String s: newList) {
-                    list.add(s);
-                    notifyDataSetChanged();
-                }
-            }
-        });
-        return convertView;
->>>>>>> 6b35162136b68a81f4155506e44d7e2bdbd98695
->>>>>>> 54c418ccf59357d6b9849b18ebd6acdf64fc8f3c
     }
 }
-
