@@ -27,6 +27,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
     private static Context mContext;
     private int mRessource;
     private DataBaseHelper mDbHelper;
+    private DataBaseHelper mDbHelperExtern;
     private static ArrayList<String> stringList;
 
     /**
@@ -35,11 +36,12 @@ public abstract class Adapter extends ArrayAdapter<String> {
      * @param context
      * @param list
      */
-    public Adapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper) {
+    public Adapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper, DataBaseHelper dbHelperExtern) {
         super(context, R.layout.list_item, list);
         mContext = context;
         stringList = list;
         mDbHelper = dbHelper;
+        mDbHelperExtern = dbHelperExtern;
         mRessource = R.layout.list_item;
     }
 
@@ -66,28 +68,50 @@ public abstract class Adapter extends ArrayAdapter<String> {
         //Info zu Textfeld hinzufuegen
         tv.setText(product);
 
+        //erhalte weitere benoetigte Elemente
+        ArrayList<String> list = getStringList();
+        DataBaseHelper dbHelper = getmDbHelper();
+
         //Loesch-Funktion
         ImageView delView = (ImageView) convertView.findViewById(R.id.delView);
         delView.setTag(position); //setzt Position in Liste als Tag
         delView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> list = getStringList();
-                DataBaseHelper dbHelper = getmDbHelper();
-
                 Integer position = new Integer(v.getTag().toString()); //Position aus Tag erhalten
                 String product = list.get(position); //Produkt aus ArrayList erhalten
 
-                dbHelper.deleteOne(product);
-                notifyDataSetChanged();
-                ArrayList<String> newList = dbHelper.getAllAsList();
-                list.clear();
-                for(String s: newList) {
-                    list.add(s);
-                }
+                deleteView(list, dbHelper, product);
+            }
+        });
+
+        //Switch-Funktion
+        ImageView switchView = (ImageView) convertView.findViewById(R.id.switchView);
+        switchView.setTag(position); //setzt Position in Liste als Tag
+        switchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Produkt von der einen Liste auf die andere schieben
+                Integer position = new Integer(v.getTag().toString()); //Position aus Tag erhalten
+                String product = list.get(position); //Produkt aus ArrayList erhalten
+
+                //von aktueller Liste/ Datenbank loeschen
+                deleteView(list, dbHelper, product);
+                //zu anderen Liste/ Datenbank hinzufuegen
+                mDbHelperExtern.addOne(product);
             }
         });
         return convertView;
+    }
+
+    public void deleteView(ArrayList<String> list, DataBaseHelper dbHelper, String product) {
+        dbHelper.deleteOne(product);
+        notifyDataSetChanged();
+        ArrayList<String> newList = dbHelper.getAllAsList();
+        list.clear();
+        for (String s : newList) {
+            list.add(s);
+        }
     }
 
     public Context getmContext() {

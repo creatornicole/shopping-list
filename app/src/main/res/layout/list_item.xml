@@ -8,11 +8,7 @@
 
     <TextView
         android:id="@+id/product"
-<<<<<<< HEAD
         android:layout_width="240dp"
-=======
-        android:layout_width="297dp"
->>>>>>> 54c418ccf59357d6b9849b18ebd6acdf64fc8f3c
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:textSize="20sp"

@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText tv;
     private static Adapter adapter;
     private DataBaseHelper dbHelper;
+    private DataBaseHelper dbHelperExtern;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         dbHelper = new DataBaseHelper(MainActivity.this, "shopping.db");
+        dbHelperExtern = new DataBaseHelper(MainActivity.this, "storage.db");
 
 
         assignVariables();
@@ -62,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showAllProducts(DataBaseHelper dbHelper) {
-        Adapter adapter = new ShoppingAdapter(this, dbHelper.getAllAsList(), dbHelper);
+        Adapter adapter = new ShoppingAdapter(this, dbHelper.getAllAsList(), dbHelper, dbHelperExtern);
         listView.setAdapter(adapter);
     }
 

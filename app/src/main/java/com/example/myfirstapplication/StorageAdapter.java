@@ -29,7 +29,9 @@ public class StorageAdapter extends Adapter {
      * @param list
      * @param dbHelper
      */
-    public StorageAdapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper) {
-        super(context, list, dbHelper);
+    public StorageAdapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper, DataBaseHelper dbHelperExtern) {
+        super(context, list, dbHelper, dbHelperExtern);
     }
+
+
 }

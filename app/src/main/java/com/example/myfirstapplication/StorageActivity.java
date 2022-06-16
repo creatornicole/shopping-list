@@ -27,6 +27,7 @@ public class StorageActivity extends AppCompatActivity {
     private EditText tv;
     private static Adapter adapter;
     private DataBaseHelper dbHelper;
+    private DataBaseHelper dbHelperExtern;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class StorageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_storage);
 
         dbHelper = new DataBaseHelper(StorageActivity.this, "storage.db");
+        dbHelperExtern = new DataBaseHelper(StorageActivity.this, "shopping.db");
 
         assignVariables();
         registerClick();
@@ -55,7 +57,7 @@ public class StorageActivity extends AppCompatActivity {
     }
 
     public void showAllProducts(DataBaseHelper dbHelper) {
-        Adapter adapter = new StorageAdapter(this, dbHelper.getAllAsList(), dbHelper);
+        Adapter adapter = new StorageAdapter(this, dbHelper.getAllAsList(), dbHelper, dbHelperExtern);
         listView.setAdapter(adapter);    }
 
     public void registerClick() {
