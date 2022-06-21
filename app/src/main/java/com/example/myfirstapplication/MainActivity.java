@@ -83,13 +83,11 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Title is missing", Toast.LENGTH_SHORT).show();
                 } else if(dbHelper.existsInDB(product)) {
                     Toast.makeText(MainActivity.this, "Already added Product to list", Toast.LENGTH_LONG).show();
-                } else if(dbHelperExtern.existsInDB(product)) {
-                    //create dialog, ask if user wants to add product even though it is already stored
+                } else if(dbHelperExtern.existsInDB(product)) {  //create dialog, ask if user wants to add product even though it is already stored
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setMessage("The product you want to add is already stored. Do you still want to add it?");
                     builder.setTitle("Add Product?");
-                    //the dialog will remain show even if the user clicks on the outside of the box
-                    builder.setCancelable(false);
+                    builder.setCancelable(false); //the dialog will still show even if the user clicks on the outside of the box
 
                     //set yes button
                     builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -100,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
 
+                    //set no button
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
