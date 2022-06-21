@@ -3,6 +3,7 @@ package com.example.myfirstapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -85,11 +86,33 @@ public class MainActivity extends AppCompatActivity {
                 } else if(dbHelperExtern.existsInDB(product)) {
                     //create dialog, ask if user wants to add product even though it is already stored
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    ViewGroup viewGroup = findViewById(android.R.id.content);
-                    View dialogView = LayoutInflater.from(view.getContext()).inflate(R.layout.add_dialog_component, viewGroup, false);
-                    builder.setView(dialogView);
+                    builder.setMessage("The product you want to add is already stored. Do you still want to add it?");
+                    builder.setTitle("Add Product?");
+                    //the dialog will remain show even if the user clicks on the outside of the box
+                    builder.setCancelable(false);
+
+                    //set yes button
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dbHelper.addOne(product);
+                            showAllProducts(dbHelper);
+                        }
+                    });
+
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    //create dialog
                     AlertDialog alertDialog = builder.create();
+
+                    //show dialog
                     alertDialog.show();
+
                 } else {
                     dbHelper.addOne(product);
                     showAllProducts(dbHelper);
