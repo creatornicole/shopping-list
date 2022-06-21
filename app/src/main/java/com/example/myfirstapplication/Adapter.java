@@ -100,7 +100,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
                 deleteView(list, dbHelper, product);
                 //add product to other list and related database
                 if(mDbHelperExtern.existsInDB(product)) { //outputs Toast if product already exists on other list
-                    Toast.makeText(mContext, "Already on other list",Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "Befindet sich bereits auf der anderen Liste.",Toast.LENGTH_LONG).show();
                 } else { //adds product to other list and related database if other list does not contain this product
                     mDbHelperExtern.addOne(product);
                 }

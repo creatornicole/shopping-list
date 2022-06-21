@@ -96,20 +96,20 @@ public class MainActivity extends AppCompatActivity {
                 String product = tv.getText().toString();
 
                 if(Pattern.matches("s*", product)) { //ouputs toast if user did not add any title
-                    Toast.makeText(MainActivity.this, "Title is missing", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Produktname fehlt.", Toast.LENGTH_SHORT).show();
 
                 } else if(dbHelper.existsInDB(product)) { //outputs toast if user entered product that already exists in the list
-                    Toast.makeText(MainActivity.this, "Already added Product to list", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Produkt befindet sich bereits auf dieser Liste.", Toast.LENGTH_LONG).show();
 
                 } else if(dbHelperExtern.existsInDB(product)) {  //create dialog, ask if user wants to add product even though it is already stored
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                    builder.setMessage("The product you want to add is already stored. Do you still want to add it?");
-                    builder.setTitle("Add Product?");
+                    builder.setMessage("Das Produkt befindet sich bereits auf der anderen Liste. Soll dies dennoch hinzugefügt werden?");
+                    builder.setTitle("Produkt hinzufügen?");
 
                     builder.setCancelable(false); //the dialog will still show even if the user clicks on the outside of the box
 
                     //set yes button
-                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dbHelper.addOne(product);
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     //set no button
-                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();

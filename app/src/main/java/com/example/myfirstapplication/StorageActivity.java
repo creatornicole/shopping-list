@@ -84,10 +84,10 @@ public class StorageActivity extends AppCompatActivity {
                 String product = tv.getText().toString();
 
                 if(Pattern.matches("s*", product)) { //ouputs toast if user did not add any title
-                    Toast.makeText(StorageActivity.this, "Title is missing", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StorageActivity.this, "Produktname fehlt.", Toast.LENGTH_SHORT).show();
 
                 } else if(dbHelper.existsInDB(product)) { //outputs toast if user entered product that already exists in the list
-                    Toast.makeText(StorageActivity.this, "Already added Product to list", Toast.LENGTH_LONG).show();
+                    Toast.makeText(StorageActivity.this, "Produkt befindet sich bereits auf dieser Liste.", Toast.LENGTH_LONG).show();
 
                 } else {
                     dbHelper.addOne(product);
