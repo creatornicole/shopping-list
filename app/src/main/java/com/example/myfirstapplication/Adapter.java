@@ -25,11 +25,11 @@ import java.util.ArrayList;
 
 public abstract class Adapter extends ArrayAdapter<String> {
 
-    private static Context mContext;
+    private Context mContext;
     private int mRessource;
     private DataBaseHelper mDbHelper;
     private DataBaseHelper mDbHelperExtern;
-    private static ArrayList<String> stringList;
+    private ArrayList<String> stringList;
 
     /**
      * Constructor to create Instance of Adapter
@@ -116,7 +116,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
      * @param dbHelper
      * @param product
      */
-    public void deleteView(ArrayList<String> list, DataBaseHelper dbHelper, String product) {
+    private void deleteView(ArrayList<String> list, DataBaseHelper dbHelper, String product) {
         dbHelper.deleteOne(product);
         notifyDataSetChanged();
         ArrayList<String> newList = dbHelper.getAllAsList();

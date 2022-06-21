@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Assign needed graphical elements to variables
      */
-    public void assignVariables() {
+    private void assignVariables() {
         listView = (ListView) findViewById(R.id.lv);
         addBtn = (ImageButton) findViewById(R.id.addBtn);
         switchBtn = (Button) findViewById(R.id.switchBtn);
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param dbHelper
      */
-    public void showAllProducts(DataBaseHelper dbHelper) {
+    private void showAllProducts(DataBaseHelper dbHelper) {
         ArrayList<String> list = dbHelper.getAllAsList();
         Collections.reverse(list);
         Adapter adapter = new ShoppingAdapter(this, list, dbHelper, dbHelperExtern);
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Add OnClickListeners to the buttons.
      */
-    public void registerClick() {
+    private void registerClick() {
         //implementation of add product function
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override

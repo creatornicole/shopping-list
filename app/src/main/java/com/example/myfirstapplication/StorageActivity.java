@@ -56,7 +56,7 @@ public class StorageActivity extends AppCompatActivity {
     /**
      * Assign needed graphical elements to variables
      */
-    public void assignVariables() {
+    private void assignVariables() {
         listView = (ListView) findViewById(R.id.lv);
         addBtn = (ImageButton) findViewById(R.id.addBtn);
         switchBtn = (Button) findViewById(R.id.switchBtn);
@@ -68,7 +68,7 @@ public class StorageActivity extends AppCompatActivity {
      *
      * @param dbHelper
      */
-    public void showAllProducts(DataBaseHelper dbHelper) {
+    private void showAllProducts(DataBaseHelper dbHelper) {
         ArrayList<String> list = dbHelper.getAllAsList();
         Collections.reverse(list);
         Adapter adapter = new StorageAdapter(this, list, dbHelper, dbHelperExtern);
@@ -77,7 +77,7 @@ public class StorageActivity extends AppCompatActivity {
     /**
      * Add OnClickListeners to the buttons.
      */
-    public void registerClick() {
+    private void registerClick() {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
