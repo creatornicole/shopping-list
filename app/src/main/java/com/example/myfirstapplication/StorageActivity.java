@@ -70,7 +70,7 @@ public class StorageActivity extends AppCompatActivity {
                 if(Pattern.matches("s*", product)) {
                     Toast.makeText(StorageActivity.this, "Title is missing", Toast.LENGTH_SHORT).show();
                 } else if(dbHelper.existsInDB(product)) {
-                    Toast.makeText(StorageActivity.this, "Already added Product to list", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(StorageActivity.this, "Already added Product to list", Toast.LENGTH_LONG).show();
                 } else {
                     dbHelper.addOne(product);
                     showAllProducts(dbHelper);

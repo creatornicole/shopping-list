@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
@@ -98,7 +99,15 @@ public abstract class Adapter extends ArrayAdapter<String> {
                 //von aktueller Liste/ Datenbank loeschen
                 deleteView(list, dbHelper, product);
                 //zu anderen Liste/ Datenbank hinzufuegen
-                mDbHelperExtern.addOne(product);
+                if(mDbHelperExtern.existsInDB(product)) {
+                    //Ausgabe Toast, wenn Produkt auf anderer Liste schon vorhanden ist
+                    Toast.makeText(mContext, "Already on other list",Toast.LENGTH_LONG).show();
+                } else {
+                    mDbHelperExtern.addOne(product);
+                }
+
+
+
             }
         });
         return convertView;
