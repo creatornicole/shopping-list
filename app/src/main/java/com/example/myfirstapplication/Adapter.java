@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 /**
- * Adapter fuer ListView-Elementen
+ * Adapter for ListView elements
  *
  * @author Nicole Gottschall
  * @since 2022-05-31
@@ -32,7 +32,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
     private static ArrayList<String> stringList;
 
     /**
-     * Konstruktor des Adapters
+     * Constructor to create Instance of Adapter
      *
      * @param context
      * @param list
@@ -47,7 +47,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
     }
 
     /**
-     * getView() wird aufgerufen, wenn ListView-Element erstellt wird.
+     * Is called when new ListView element is created.
      *
      * @param position
      * @param convertView
@@ -57,52 +57,51 @@ public abstract class Adapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //geklicktes Element der ListView erhalten
+        //get clicked element of ListView
         String product = getItem(position);
 
         LayoutInflater inflater = LayoutInflater.from(getmContext());
         convertView = inflater.inflate(getmRessource(), parent, false);
 
-        //erhalte Textfeld
+        //get TextField
         TextView tv = (TextView) convertView.findViewById(R.id.product);
 
-        //Info zu Textfeld hinzufuegen
+        //add product to TextView
         tv.setText(product);
 
-        //erhalte weitere benoetigte Elemente
+        //get other needed elements
         ArrayList<String> list = getStringList();
         DataBaseHelper dbHelper = getmDbHelper();
 
-        //Loesch-Funktion
+        //implementation of delete function
         ImageView delView = (ImageView) convertView.findViewById(R.id.delView);
-        delView.setTag(position); //setzt Position in Liste als Tag
+        delView.setTag(position); //sets position in list as tag
         delView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Integer position = new Integer(v.getTag().toString()); //Position aus Tag erhalten
-                String product = list.get(position); //Produkt aus ArrayList erhalten
+                Integer position = new Integer(v.getTag().toString()); //get position set as tag
+                String product = list.get(position); //get product from ArrayList
 
                 deleteView(list, dbHelper, product);
             }
         });
 
-        //Switch-Funktion
+        //implementation of product switch function
         ImageView switchView = (ImageView) convertView.findViewById(R.id.switchView);
-        switchView.setTag(position); //setzt Position in Liste als Tag
+        switchView.setTag(position); //sets position in list as tag
         switchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Produkt von der einen Liste auf die andere schieben
-                Integer position = new Integer(v.getTag().toString()); //Position aus Tag erhalten
-                String product = list.get(position); //Produkt aus ArrayList erhalten
+                //transfer product from current list to the other list
+                Integer position = new Integer(v.getTag().toString()); //get position set as tag
+                String product = list.get(position); //get product from ArrayList
 
-                //von aktueller Liste/ Datenbank loeschen
+                //delete product from current list and related database
                 deleteView(list, dbHelper, product);
-                //zu anderen Liste/ Datenbank hinzufuegen
-                if(mDbHelperExtern.existsInDB(product)) {
-                    //Ausgabe Toast, wenn Produkt auf anderer Liste schon vorhanden ist
+                //add product to other list and related database
+                if(mDbHelperExtern.existsInDB(product)) { //outputs Toast if product already exists on other list
                     Toast.makeText(mContext, "Already on other list",Toast.LENGTH_LONG).show();
-                } else {
+                } else { //adds product to other list and related database if other list does not contain this product
                     mDbHelperExtern.addOne(product);
                 }
             }
@@ -110,6 +109,13 @@ public abstract class Adapter extends ArrayAdapter<String> {
         return convertView;
     }
 
+    /**
+     * Method to delete product from database and update ListView.
+     *
+     * @param list
+     * @param dbHelper
+     * @param product
+     */
     public void deleteView(ArrayList<String> list, DataBaseHelper dbHelper, String product) {
         dbHelper.deleteOne(product);
         notifyDataSetChanged();
@@ -120,18 +126,38 @@ public abstract class Adapter extends ArrayAdapter<String> {
         }
     }
 
+    /**
+     * Getter - get given Context
+     *
+     * @return
+     */
     public Context getmContext() {
         return mContext;
     }
 
+    /**
+     * Getter - get given list of products
+     *
+     * @return
+     */
     public ArrayList<String> getStringList() {
         return stringList;
     }
 
+    /**
+     * Getter - get position of given ListView element
+     *
+     * @return
+     */
     public int getmRessource() {
         return mRessource;
     }
 
+    /**
+     * Getter - get database of list
+     *
+     * @return
+     */
     public DataBaseHelper getmDbHelper() {
         return mDbHelper;
     }

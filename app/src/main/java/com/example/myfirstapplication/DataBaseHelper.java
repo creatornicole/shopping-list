@@ -19,13 +19,17 @@ import java.util.ArrayList;
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    //need two different database for two lists
-    public static String tableTitle;
-    public static final String STORAGE_TABLE = "STORAGE_TABLE";
+    public static String tableTitle; //tableTitle depends on given name of database
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_PRODUCT = "PRODUCT";
 
 
+    /**
+     * Constructor to create instance of DataBaseHelper
+     *
+     * @param context
+     * @param name
+     */
     public DataBaseHelper(@Nullable Context context, @Nullable String name) {
         super(context, name, null, 1);
         if(name.equals("shopping.db")) {
@@ -35,6 +39,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Is called when DataBaseHelper is created for the first time.
+     *
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement = "CREATE TABLE " + tableTitle
@@ -43,23 +52,47 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTableStatement);
     }
 
+    /**
+     * Upgrade from old database version to new database version.
+     *
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 
+    /**
+     * Add product to database.
+     *
+     * @param product
+     * @return
+     */
     public boolean addOne(String product) {
-        SQLiteDatabase db = this.getWritableDatabase(); //um mit Daten in Datenbank zu arbeiten
-        ContentValues cv = new ContentValues(); //speichert Daten in Paaren
+        SQLiteDatabase db = this.getWritableDatabase(); //to work with data in database
+        ContentValues cv = new ContentValues(); //stores data in pairs
         cv.put(COLUMN_PRODUCT, product);
         return db.insert(tableTitle, null, cv) > -1;
     }
 
+    /**
+     * Delete product from database.
+     *
+     * @param product
+     * @return
+     */
     public boolean deleteOne(String product) {
         SQLiteDatabase db = this.getWritableDatabase(); //um mit Daten in Datenbank zu arbeiten
         return db.delete(tableTitle, COLUMN_PRODUCT + "=?", new String[]{product}) > 0;
     }
 
+    /**
+     * Get database entries as ArrayList.
+     *
+     * @return
+     */
     @SuppressLint("Range")
     public ArrayList<String> getAllAsList() {
         //create empty list
@@ -73,6 +106,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
+    /**
+     * Check if product already exists in database.
+     *
+     * @param product
+     * @return
+     */
     public boolean existsInDB(String product) {
         boolean rv = false;
         SQLiteDatabase db = this.getWritableDatabase(); //um mit Daten in Datenbank zu arbeiten

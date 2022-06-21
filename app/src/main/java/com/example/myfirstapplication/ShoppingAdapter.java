@@ -21,7 +21,7 @@ import com.example.myfirstapplication.R;
 import java.util.ArrayList;
 
 /**
- * Adapter fuer ListView-Elementen der Shopping-Liste
+ * Adapter for ListView elements of shoppinglist.
  *
  * @author Nicole Gottschall
  * @since 2022-06-01
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class ShoppingAdapter extends Adapter {
 
     /**
-     * Konstruktor des Adapters
+     * Constructor to create Instance of Adapter for shoppinglist.
      *
      * @param context
      * @param list

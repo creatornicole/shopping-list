@@ -16,28 +16,35 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Pattern;
 
+/**
+ * Activity of Storagelist.
+ *
+ * @author Nicole Gottschall
+ * @since 2022-06-01
+ */
+
 public class StorageActivity extends AppCompatActivity {
 
-    /**
-     * Attributes
-     */
     private static ListView listView;
     private ImageButton addBtn;
     private Button switchBtn;
     private EditText tv;
-    private static Adapter adapter;
     private DataBaseHelper dbHelper;
     private DataBaseHelper dbHelperExtern;
 
+    /**
+     * Initialization method of activity
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        /**
-         * Erstellen der grafischen Oberflaeche
-         */
+        //create graphical interface
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage);
 
+        //create database
         dbHelper = new DataBaseHelper(StorageActivity.this, "storage.db");
         dbHelperExtern = new DataBaseHelper(StorageActivity.this, "shopping.db");
 
@@ -47,7 +54,7 @@ public class StorageActivity extends AppCompatActivity {
     }
 
     /**
-     * Weisst die benoetigten grafischen Elemente zu Variablen zu
+     * Assign needed graphical elements to variables
      */
     public void assignVariables() {
         listView = (ListView) findViewById(R.id.lv);
@@ -56,30 +63,43 @@ public class StorageActivity extends AppCompatActivity {
         tv = (EditText) findViewById(R.id.tv);
     }
 
+    /**
+     * Show all current stored products in database in ListView.
+     *
+     * @param dbHelper
+     */
     public void showAllProducts(DataBaseHelper dbHelper) {
         ArrayList<String> list = dbHelper.getAllAsList();
         Collections.reverse(list);
         Adapter adapter = new StorageAdapter(this, list, dbHelper, dbHelperExtern);
         listView.setAdapter(adapter);    }
 
+    /**
+     * Add OnClickListeners to the buttons.
+     */
     public void registerClick() {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String product = tv.getText().toString();
-                if(Pattern.matches("s*", product)) {
+
+                if(Pattern.matches("s*", product)) { //ouputs toast if user did not add any title
                     Toast.makeText(StorageActivity.this, "Title is missing", Toast.LENGTH_SHORT).show();
-                } else if(dbHelper.existsInDB(product)) {
+
+                } else if(dbHelper.existsInDB(product)) { //outputs toast if user entered product that already exists in the list
                     Toast.makeText(StorageActivity.this, "Already added Product to list", Toast.LENGTH_LONG).show();
+
                 } else {
                     dbHelper.addOne(product);
                     showAllProducts(dbHelper);
                 }
-                //Textfeld wieder leeren
+
+                //Empty TextView
                 tv.setText("");
             }
         });
 
+        //button to switch to other activity
         switchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
