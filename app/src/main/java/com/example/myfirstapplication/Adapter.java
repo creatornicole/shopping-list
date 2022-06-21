@@ -105,9 +105,6 @@ public abstract class Adapter extends ArrayAdapter<String> {
                 } else {
                     mDbHelperExtern.addOne(product);
                 }
-
-
-
             }
         });
         return convertView;

@@ -2,10 +2,13 @@ package com.example.myfirstapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -79,6 +82,14 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Title is missing", Toast.LENGTH_SHORT).show();
                 } else if(dbHelper.existsInDB(product)) {
                     Toast.makeText(MainActivity.this, "Already added Product to list", Toast.LENGTH_LONG).show();
+                } else if(dbHelperExtern.existsInDB(product)) {
+                    //create dialog, ask if user wants to add product even though it is already stored
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    ViewGroup viewGroup = findViewById(android.R.id.content);
+                    View dialogView = LayoutInflater.from(view.getContext()).inflate(R.layout.add_dialog_component, viewGroup, false);
+                    builder.setView(dialogView);
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
                 } else {
                     dbHelper.addOne(product);
                     showAllProducts(dbHelper);
