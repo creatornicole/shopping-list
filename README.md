@@ -1,8 +1,6 @@
 
 # shopping-list
 
-![shopping-list](logo.png){ width=30px,height:30px }
-
 Android App that enables you to create your shopping list digitally on your smartphone
 and keep track of your products at home.
 
