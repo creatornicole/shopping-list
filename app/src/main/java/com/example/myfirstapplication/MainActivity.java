@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +39,7 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity {
 
     private static ListView listView;
-    private ImageButton addBtn;
+    private ImageView addBtn;
     private Button switchBtn;
     private EditText tv;
     private DataBaseHelper dbHelper;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void assignVariables() {
         listView = (ListView) findViewById(R.id.lv);
-        addBtn = (ImageButton) findViewById(R.id.addBtn);
+        addBtn = (ImageView) findViewById(R.id.addBtn);
         switchBtn = (Button) findViewById(R.id.switchBtnToolbar);
         switchBtn.setText("Zum Lager >");
         tv = (EditText) findViewById(R.id.tv);

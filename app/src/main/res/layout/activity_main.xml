@@ -11,9 +11,9 @@
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -23,25 +23,29 @@
 
         <LinearLayout
             android:id="@+id/shoppingHeader"
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="30dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/tv"
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Zur Einkaufliste hinzufügen..."
                 android:inputType="textPersonName" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/addBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:layout_weight="1"
-                app:srcCompat="@android:drawable/ic_menu_add" />
+                android:clickable="true"
+                app:srcCompat="@mipmap/ic_add_foreground"/>
 
         </LinearLayout>
 
