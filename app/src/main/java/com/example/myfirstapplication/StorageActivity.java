@@ -1,5 +1,6 @@
 package com.example.myfirstapplication;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -44,6 +45,10 @@ public class StorageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage);
 
+        //change toolbar
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_toolbar);
+
         //create database
         dbHelper = new DataBaseHelper(StorageActivity.this, "storage.db");
         dbHelperExtern = new DataBaseHelper(StorageActivity.this, "shopping.db");
@@ -59,7 +64,8 @@ public class StorageActivity extends AppCompatActivity {
     private void assignVariables() {
         listView = (ListView) findViewById(R.id.lv);
         addBtn = (ImageButton) findViewById(R.id.addBtn);
-        switchBtn = (Button) findViewById(R.id.switchBtn);
+        switchBtn = (Button) findViewById(R.id.switchBtnToolbar);
+        switchBtn.setText("Zur Einkaufsliste >");
         tv = (EditText) findViewById(R.id.tv);
     }
 

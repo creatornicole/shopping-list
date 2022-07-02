@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //change header
+        //change toolbar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_toolbar);
 
@@ -76,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
     private void assignVariables() {
         listView = (ListView) findViewById(R.id.lv);
         addBtn = (ImageButton) findViewById(R.id.addBtn);
-        switchBtn = (Button) findViewById(R.id.switchBtn);
+        switchBtn = (Button) findViewById(R.id.switchBtnToolbar);
+        switchBtn.setText("Zum Lager >");
         tv = (EditText) findViewById(R.id.tv);
     }
 
