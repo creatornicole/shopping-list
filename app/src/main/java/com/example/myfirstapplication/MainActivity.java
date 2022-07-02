@@ -1,5 +1,6 @@
 package com.example.myfirstapplication;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -18,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import org.w3c.dom.Text;
 
@@ -53,6 +55,11 @@ public class MainActivity extends AppCompatActivity {
         //create graphical interface
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //change header
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_toolbar);
+
 
         //create databases
         dbHelper = new DataBaseHelper(MainActivity.this, "shopping.db");

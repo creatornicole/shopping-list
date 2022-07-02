@@ -91,7 +91,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
         switchView.setTag(position); //sets position in list as tag
         switchView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void obnClick(View v) {
+            public void onClick(View v) {
                 //transfer product from current list to the other list
                 Integer position = new Integer(v.getTag().toString()); //get position set as tag
                 String product = list.get(position); //get product from ArrayList
