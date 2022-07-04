@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/___/studium/IF21wS1-B/2_weiterfuehrendeProgrammierung/MyFirstApplication/app/src/main/res/drawable/radius.xml" value="0.124" />
+        <entry key="..\:/___/studium/IF21wS1-B/2_weiterfuehrendeProgrammierung/MyFirstApplication/app/src/main/res/drawable/rounded_corners.xml" value="0.272" />
         <entry key="..\:/___/studium/IF21wS1-B/2_weiterfuehrendeProgrammierung/MyFirstApplication/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/___/studium/IF21wS1-B/2_weiterfuehrendeProgrammierung/MyFirstApplication/app/src/main/res/layout/activity_storage.xml" value="0.17831813576494426" />
         <entry key="..\:/___/studium/IF21wS1-B/2_weiterfuehrendeProgrammierung/MyFirstApplication/app/src/main/res/layout/add_dialog_component.xml" value="0.36666666666666664" />

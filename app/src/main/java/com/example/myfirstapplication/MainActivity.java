@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.custom_toolbar);
 
-
         //create databases
         dbHelper = new DataBaseHelper(MainActivity.this, "shopping.db");
         dbHelperExtern = new DataBaseHelper(MainActivity.this, "storage.db");
