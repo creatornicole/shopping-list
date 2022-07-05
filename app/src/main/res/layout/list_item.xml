@@ -19,19 +19,18 @@
 
     <ImageView
         android:id="@+id/delView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_delete"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@mipmap/ic_deletev2_foreground"
         android:clickable="true"
         android:layout_gravity="center_vertical"/>
 
     <ImageView
         android:id="@+id/switchView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_set_as"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@mipmap/ic_switch_foreground"
         android:clickable="true"
-        android:layout_marginLeft="10dp"
         android:layout_gravity="center_vertical"/>
 
 
