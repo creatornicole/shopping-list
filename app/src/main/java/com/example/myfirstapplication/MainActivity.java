@@ -57,14 +57,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //change toolbar
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.custom_toolbar);
-
         //create databases
         dbHelper = new DataBaseHelper(MainActivity.this, "shopping.db");
         dbHelperExtern = new DataBaseHelper(MainActivity.this, "storage.db");
 
+        customizeToolbar();
         assignVariables();
         registerClick();
         showAllProducts(dbHelper);
@@ -79,6 +76,15 @@ public class MainActivity extends AppCompatActivity {
         switchBtn = (Button) findViewById(R.id.switchBtnToolbar);
         switchBtn.setText("Zum Lager >");
         tv = (EditText) findViewById(R.id.tv);
+    }
+
+    /**
+     * Customizes Toolbar
+     */
+    private void customizeToolbar() {
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_toolbar);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.darkTuerkis));
     }
 
     /**

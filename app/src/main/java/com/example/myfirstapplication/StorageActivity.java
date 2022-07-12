@@ -46,14 +46,11 @@ public class StorageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_storage);
 
-        //change toolbar
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.custom_toolbar);
-
         //create database
         dbHelper = new DataBaseHelper(StorageActivity.this, "storage.db");
         dbHelperExtern = new DataBaseHelper(StorageActivity.this, "shopping.db");
 
+        customizeToolbar();
         assignVariables();
         registerClick();
         showAllProducts(dbHelper);
@@ -69,6 +66,15 @@ public class StorageActivity extends AppCompatActivity {
         switchBtn.setText("Zur Einkaufsliste >");
         tv = (EditText) findViewById(R.id.tv);
     }
+    /**
+     * Customizes Toolbar
+     */
+    private void customizeToolbar() {
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_toolbar);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.darkTuerkis));
+    }
+
 
     /**
      * Show all current stored products in database in ListView.
