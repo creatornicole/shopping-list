@@ -2,7 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:padding="7dp"
     android:orientation="horizontal"
@@ -11,11 +11,12 @@
 
     <TextView
         android:id="@+id/product"
-        android:layout_width="210dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_weight="0.5"/>
 
     <ImageView
         android:id="@+id/delView"
@@ -23,7 +24,7 @@
         android:layout_height="45dp"
         android:src="@mipmap/ic_deletev2_foreground"
         android:clickable="true"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="right"/>
 
     <ImageView
         android:id="@+id/switchView"
@@ -31,7 +32,7 @@
         android:layout_height="45dp"
         android:src="@mipmap/ic_switch_foreground"
         android:clickable="true"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="right"/>
 
 
 
