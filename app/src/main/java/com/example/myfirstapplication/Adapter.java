@@ -31,10 +31,10 @@ public abstract class Adapter extends ArrayAdapter<String> {
     /**
      * Constructor to create Instance of Adapter
      *
-     * @param context
-     * @param list
-     * @param dbHelper
-     * @param dbHelperExtern
+     * @param context Context
+     * @param list List that contains Elements for Adapter
+     * @param dbHelper DataBaseHelper to connect to database
+     * @param dbHelperExtern DataBaseHelper to access also the other existing database
      */
     public Adapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper, DataBaseHelper dbHelperExtern) {
         super(context, R.layout.list_item, list);
@@ -48,10 +48,10 @@ public abstract class Adapter extends ArrayAdapter<String> {
     /**
      * Is called when new ListView element is created.
      *
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
+     * @param position Position of Element
+     * @param convertView View
+     * @param parent ViewGroup
+     * @return View
      */
     @NonNull
     @Override
@@ -111,9 +111,9 @@ public abstract class Adapter extends ArrayAdapter<String> {
     /**
      * Method to delete product from database and update ListView.
      *
-     * @param list
-     * @param dbHelper
-     * @param product
+     * @param list List to delete Product from
+     * @param dbHelper DataBaseHelper that contains Product
+     * @param product Product that is going to be deleted
      */
     private void deleteView(ArrayList<String> list, DataBaseHelper dbHelper, String product) {
         dbHelper.deleteOne(product);
@@ -128,7 +128,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
     /**
      * Getter - get given Context
      *
-     * @return
+     * @return Context
      */
     public Context getmContext() {
         return mContext;
@@ -137,7 +137,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
     /**
      * Getter - get given list of products
      *
-     * @return
+     * @return ArrayList with Elements
      */
     public ArrayList<String> getStringList() {
         return stringList;
@@ -146,7 +146,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
     /**
      * Getter - get position of given ListView element
      *
-     * @return
+     * @return Position of ListView element
      */
     public int getmRessource() {
         return mRessource;
@@ -155,7 +155,7 @@ public abstract class Adapter extends ArrayAdapter<String> {
     /**
      * Getter - get database of list
      *
-     * @return
+     * @return database that is connected to list
      */
     public DataBaseHelper getmDbHelper() {
         return mDbHelper;

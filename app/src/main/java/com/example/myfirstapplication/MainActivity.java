@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Initialization method of activity
      *
-     * @param savedInstanceState
+     * @param savedInstanceState Bundle
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Show all current stored products in database in ListView.
      *
-     * @param dbHelper
+     * @param dbHelper Database that stores values of List
      */
     private void showAllProducts(DataBaseHelper dbHelper) {
         ArrayList<String> list = dbHelper.getAllAsList();

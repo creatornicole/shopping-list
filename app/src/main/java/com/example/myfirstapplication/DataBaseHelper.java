@@ -27,8 +27,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /**
      * Constructor to create instance of DataBaseHelper
      *
-     * @param context
-     * @param name
+     * @param context Context
+     * @param name Name of Database
      */
     public DataBaseHelper(@Nullable Context context, @Nullable String name) {
         super(context, name, null, 1);
@@ -42,7 +42,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /**
      * Is called when DataBaseHelper is created for the first time.
      *
-     * @param db
+     * @param db Database that is going to be created
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -55,9 +55,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /**
      * Upgrade from old database version to new database version.
      *
-     * @param db
-     * @param oldVersion
-     * @param newVersion
+     * @param db Database
+     * @param oldVersion old Version of Database
+     * @param newVersion new Version of Database
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -67,8 +67,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /**
      * Add product to database.
      *
-     * @param product
-     * @return
+     * @param product Product that is going to be added
+     * @return true/false if add-function was executed successful
      */
     public boolean addOne(String product) {
         SQLiteDatabase db = this.getWritableDatabase(); //to work with data in database
@@ -80,8 +80,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /**
      * Delete product from database.
      *
-     * @param product
-     * @return
+     * @param product Product that is going to be deleted
+     * @return true/false if delete-function was executed successful
      */
     public boolean deleteOne(String product) {
         SQLiteDatabase db = this.getWritableDatabase(); //um mit Daten in Datenbank zu arbeiten
@@ -91,7 +91,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /**
      * Get database entries as ArrayList.
      *
-     * @return
+     * @return ArrayList with database entries
      */
     @SuppressLint("Range")
     public ArrayList<String> getAllAsList() {
@@ -109,8 +109,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /**
      * Check if product already exists in database.
      *
-     * @param product
-     * @return
+     * @param product Product if it already exists in database
+     * @return true/false if Product already exists in database
      */
     public boolean existsInDB(String product) {
         boolean rv = false;
