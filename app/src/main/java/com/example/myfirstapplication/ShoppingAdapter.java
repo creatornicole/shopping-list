@@ -19,6 +19,7 @@ public class ShoppingAdapter extends Adapter {
      * @param context
      * @param list
      * @param dbHelper
+     * @param dbHelperExtern
      */
     public ShoppingAdapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper, DataBaseHelper dbHelperExtern) {
         super(context, list, dbHelper, dbHelperExtern);

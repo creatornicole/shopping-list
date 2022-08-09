@@ -33,6 +33,8 @@ public abstract class Adapter extends ArrayAdapter<String> {
      *
      * @param context
      * @param list
+     * @param dbHelper
+     * @param dbHelperExtern
      */
     public Adapter(@NonNull Context context, ArrayList<String> list, DataBaseHelper dbHelper, DataBaseHelper dbHelperExtern) {
         super(context, R.layout.list_item, list);
