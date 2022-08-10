@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private void showAllProducts(DataBaseHelper dbHelper) {
         ArrayList<String> list = dbHelper.getAllAsList();
-        Collections.reverse(list);
         Adapter adapter = new ShoppingAdapter(this, list, dbHelper, dbHelperExtern);
         listView.setAdapter(adapter);
     }

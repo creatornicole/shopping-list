@@ -80,7 +80,6 @@ public class StorageActivity extends AppCompatActivity {
      */
     private void showAllProducts(DataBaseHelper dbHelper) {
         ArrayList<String> list = dbHelper.getAllAsList();
-        Collections.reverse(list);
         Adapter adapter = new StorageAdapter(this, list, dbHelper, dbHelperExtern);
         listView.setAdapter(adapter);    }
 
